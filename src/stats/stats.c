@@ -34,5 +34,34 @@ double highest_total_individual_cost(individual_list * il) {
   return max;
 }
 
-// double most_expensive_category(individual_list * il) {
-// }
+category most_used_category(individual_list * il) {
+  int categories[10];
+  int max = -1;
+  int max_index = 0;
+  for(int i = 0; i < il->qty_ind; i++)
+    for(int j = 0; j < il->list[i]->wf->qty_fc; j++)
+      if(il->list[i]->wf->fc[j]->none != 1)
+        categories[il->list[i]->wf->fc[j]->cat]++;
+  for(int i = 0; i < 10; i++)
+    if(categories[i] > max) {
+      max = categories[i];
+      max_index = i;
+    }
+  return (category)max_index;
+}
+
+category least_used_category(individual_list * il) {
+  int categories[10];
+  int min = 1000;
+  int min_index = 0;
+  for(int i = 0; i < il->qty_ind; i++)
+    for(int j = 0; j < il->list[i]->wf->qty_fc; j++)
+      if(il->list[i]->wf->fc[j]->none != 1)
+        categories[il->list[i]->wf->fc[j]->cat]++;
+  for(int i = 0; i < 10; i++)
+    if(categories[i] < min) {
+      min = categories[i];
+      min_index = i;
+    }
+  return (category)min_index;
+}
